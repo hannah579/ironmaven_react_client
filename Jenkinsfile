@@ -30,8 +30,8 @@ node {
 	  if(response=="Yes") {
 	    stage('Deploy to Kubernetes cluster  - react client') {
 	      sh "docker stop mcc-react"
-	      sh "kubectl create deployment reactclient --mcc-react:v1.0"
-	      sh "kubectl expose deployment reactclient --mcc-react:v1.0"
+	      sh "kubectl create deployment reactclient --image=mcc-react:v1.0"
+	      sh "kubectl expose deployment reactclient --type=LoadBalancer --port=80"
 	    }
 	  }
     }
