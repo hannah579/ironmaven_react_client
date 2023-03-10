@@ -28,10 +28,14 @@ node {
 	   description: '', name: 'Pass')]
 	
 	  if(response=="Yes") {
-	    stage('Release  - react client') {
+	    stage('Deploy to Kubernetes cluster  - react client') {
 	      sh "docker stop mcc-react"
-	      sh "echo MCC react client service is ready to release!"
+	      sh "kubectl create deployment reactclient --mcc-react:v1.0"
+	      sh "kubectl expose deployment reactclient --mcc-react:v1.0"
 	    }
 	  }
     }
+	stage("Production Deployment View"){
+		sh "kubectl get all"
+		sh "minikube service list"
 }
